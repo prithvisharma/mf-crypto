@@ -63,6 +63,9 @@ public class CryptoCoinService {
     }
 
     private void validateSymbol(String symbol) throws ServiceException {
+        if (symbol == null) {
+            throw new ServiceException(CustomError.QUERY_PARAM_REQUIRED);
+        }
         try {
             SupportedSymbolEnum.valueOf(symbol);
         } catch (Exception e) {
