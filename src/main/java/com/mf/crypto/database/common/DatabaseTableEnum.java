@@ -2,7 +2,7 @@ package com.mf.crypto.database.common;
 
 public enum DatabaseTableEnum {
 
-    TEST("test");
+    COIN("coin");
 
     private String table;
 
