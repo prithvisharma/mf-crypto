@@ -24,7 +24,7 @@ public class CryptoCoinController {
     }
 
     @GetMapping(value = "/coin")
-    public ServiceResponseDataDto getCoin(@RequestParam(name = "symbol", required = true) String symbol)
+    public ServiceResponseDataDto getCoin(@RequestParam(name = "symbol", required = false) String symbol)
             throws ServiceException {
         return cryptoCoinService.get(symbol);
     }
