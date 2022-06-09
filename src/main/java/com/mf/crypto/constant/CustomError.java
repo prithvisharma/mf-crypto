@@ -8,7 +8,7 @@ public enum CustomError {
     COIN_NOT_FOUND("Coin not found", HttpStatus.NOT_FOUND),
     INVALID_SYMBOL("Invalid symbol", HttpStatus.BAD_REQUEST),
     INVALID_LIMIT("Invalid limit, should be integer value only", HttpStatus.BAD_REQUEST),
-    UNHANDLED_CASE("Unhandled case", HttpStatus.INTERNAL_SERVER_ERROR);
+    QUERY_PARAM_NOT_SUPPORTED("Query parameter not supported", HttpStatus.EXPECTATION_FAILED);
 
     private final String message;
     private final HttpStatus httpStatus;

@@ -42,7 +42,7 @@ public class CryptoCoinService {
             final List<Coin> coinList = coinDb.findAllByRange(symbol, coinId, limitIntValue);
             return new ServiceResponseDataDto(coinList);
         }
-        throw new ServiceException(CustomError.UNHANDLED_CASE);
+        throw new ServiceException(CustomError.QUERY_PARAM_NOT_SUPPORTED);
     }
 
     public ServiceResponseDataDto get(String symbol) throws ServiceException {
