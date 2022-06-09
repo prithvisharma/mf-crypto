@@ -1,20 +1,20 @@
 package com.mf.crypto.dto;
 
 public class ServiceResponseDataDto extends ServiceResponseDto {
-    private String response;
+    private Object response;
 
     public ServiceResponseDataDto() {
     }
 
-    public ServiceResponseDataDto(String response) {
-        this.response = response;
+    public ServiceResponseDataDto(Object response) {
+        setResponse(response);
     }
 
-    public String getResponse() {
+    public Object getResponse() {
         return this.response;
     }
 
-    public void setResponse(String response) {
+    public void setResponse(Object response) {
         this.response = response;
     }
 
