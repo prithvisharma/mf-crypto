@@ -3,7 +3,7 @@ package com.mf.crypto.constant;
 import org.springframework.http.HttpStatus;
 
 public enum CustomError {
-    SERVICE_FAILURE("Service is currently unavailable.", HttpStatus.INTERNAL_SERVER_ERROR),
+    SERVICE_FAILURE("Service is currently unavailable", HttpStatus.INTERNAL_SERVER_ERROR),
     VENDOR_API_FAILURE("Vendor api failure", HttpStatus.INTERNAL_SERVER_ERROR);
 
     private final String message;
