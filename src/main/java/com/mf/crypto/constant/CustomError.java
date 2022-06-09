@@ -4,7 +4,11 @@ import org.springframework.http.HttpStatus;
 
 public enum CustomError {
     SERVICE_FAILURE("Service is currently unavailable", HttpStatus.INTERNAL_SERVER_ERROR),
-    VENDOR_API_FAILURE("Vendor api failure", HttpStatus.INTERNAL_SERVER_ERROR);
+    VENDOR_API_FAILURE("Vendor api failure", HttpStatus.INTERNAL_SERVER_ERROR),
+    COIN_NOT_FOUND("Coin not found", HttpStatus.NOT_FOUND),
+    INVALID_SYMBOL("Invalid symbol", HttpStatus.BAD_REQUEST),
+    INVALID_LIMIT("Invalid limit, should be integer value only", HttpStatus.BAD_REQUEST),
+    UNHANDLED_CASE("Unhandled case", HttpStatus.INTERNAL_SERVER_ERROR);
 
     private final String message;
     private final HttpStatus httpStatus;
