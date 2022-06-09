@@ -1,6 +1,8 @@
 package com.mf.crypto.api.coin.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +48,17 @@ public class CryptoCoinService {
     public ServiceResponseDataDto get(String symbol) throws ServiceException {
         validateSymbol(symbol);
 
+        final Map<String, Coin> cachedCoins = new HashMap<String, Coin>();
+
+        if (cachedCoins.containsKey(symbol)) {
+            final Coin coin = cachedCoins.get(symbol);
+            return new ServiceResponseDataDto(coin);
+        }
+
         final Coin coin = coinDb.findBySymbol(symbol);
+
+        cachedCoins.put(symbol, coin);
+
         return new ServiceResponseDataDto(coin);
     }
 
