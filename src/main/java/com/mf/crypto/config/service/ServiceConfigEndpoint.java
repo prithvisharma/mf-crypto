@@ -1,7 +1,7 @@
 package com.mf.crypto.config.service;
 
 public enum ServiceConfigEndpoint {
-    CRYPTO("/crypto");
+    MF("/mf");
 
     private ServiceConfigEndpoint(String endpoint) {
         this.setEndpoint(endpoint);

@@ -8,7 +8,7 @@ public class HealthCheckDto extends ServiceResponseDto {
     private String status;
 
     public HealthCheckDto() {
-        this.name = ServiceConfigEndpoint.CRYPTO.getEndpoint().substring(1);
+        this.name = ServiceConfigEndpoint.MF.getEndpoint().substring(1);
         this.status = "HEALTHY";
     }
 

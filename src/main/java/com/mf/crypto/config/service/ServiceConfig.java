@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ServiceConfig {
-    private final String SERVICE_ENDPOINT = ServiceConfigEndpoint.CRYPTO.getEndpoint();
+    private final String SERVICE_ENDPOINT = ServiceConfigEndpoint.MF.getEndpoint();
 
     @Bean
     public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer() {
