@@ -7,7 +7,8 @@ public enum CustomError {
     VENDOR_API_FAILURE("Vendor api failure", HttpStatus.INTERNAL_SERVER_ERROR),
     COIN_NOT_FOUND("Coin not found", HttpStatus.NOT_FOUND),
     INVALID_SYMBOL("Invalid symbol", HttpStatus.BAD_REQUEST),
-    INVALID_LIMIT("Invalid limit, should be integer value only", HttpStatus.BAD_REQUEST),
+    INVALID_PAGE_NO("Invalid page no, should be integer value only", HttpStatus.BAD_REQUEST),
+    INVALID_PAGE_SIZE("Invalid page size, should be integer value only", HttpStatus.BAD_REQUEST),
     QUERY_PARAM_NOT_SUPPORTED("Query parameter not supported", HttpStatus.EXPECTATION_FAILED),
     QUERY_PARAM_REQUIRED("Query parameter is mandatory", HttpStatus.EXPECTATION_FAILED);
 
