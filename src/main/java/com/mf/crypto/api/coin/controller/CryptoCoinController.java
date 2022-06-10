@@ -18,9 +18,9 @@ public class CryptoCoinController {
     private CryptoCoinService cryptoCoinService;
 
     @GetMapping(value = "/coins")
-    public ServiceResponseDataDto getAllCoins(@RequestParam(name = "symbol", required = false) String symbol,
-            @RequestParam(name = "limit", required = false) String limit) throws ServiceException {
-        return cryptoCoinService.getAll(symbol, limit);
+    public ServiceResponseDataDto getAllCoins(@RequestParam(name = "pageNo", required = false) String pageNo,
+            @RequestParam(name = "pageSize", required = false) String pageSize) throws ServiceException {
+        return cryptoCoinService.getAll(pageNo, pageSize);
     }
 
     @GetMapping(value = "/coin")
