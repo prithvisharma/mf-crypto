@@ -22,42 +22,36 @@ public class CryptoCoinService {
     @Autowired
     private CoinDb coinDb;
 
-    public ServiceResponseDataDto getAll(String symbol, String limit) throws ServiceException {
-        final int defaultLimit = 10;
-        if (symbol == null && limit == null) {
-            final List<Coin> coinList = coinDb.findAllByLimit(defaultLimit);
-            return new ServiceResponseDataDto(coinList);
+    final Map<String, Coin> coinCache = new HashMap<String, Coin>();
+    final Map<String, List<Coin>> coinListCache = new HashMap<String, List<Coin>>();
+
+    public ServiceResponseDataDto getAll(String pageNo, String pageSize) throws ServiceException {
+
+        final int requestedPageNo = validatePageNo(pageNo);
+        final int requestedPageSize = validatePageSize(pageSize);
+        final String cacheKey = pageNo + ":" + pageSize;
+
+        if (coinListCache.containsKey(cacheKey)) {
+            return new ServiceResponseDataDto(coinListCache.get(cacheKey));
         }
 
-        if (symbol == null && limit != null) {
-            final int limitIntValue = validateLimit(limit);
-            final List<Coin> coinList = coinDb.findAllByLimit(limitIntValue);
-            return new ServiceResponseDataDto(coinList);
-        }
+        final List<Coin> coinList = coinDb.findAllPaginated(requestedPageNo, requestedPageSize);
+        coinListCache.put(cacheKey, coinList);
 
-        if (symbol != null && limit != null) {
-            validateSymbol(symbol);
-            final int limitIntValue = validateLimit(limit);
-            final String coinId = coinDb.findBySymbol(symbol).getId();
-            final List<Coin> coinList = coinDb.findAllByRange(symbol, coinId, limitIntValue);
-            return new ServiceResponseDataDto(coinList);
-        }
-        throw new ServiceException(CustomError.QUERY_PARAM_NOT_SUPPORTED);
+        return new ServiceResponseDataDto(coinList);
     }
 
     public ServiceResponseDataDto get(String symbol) throws ServiceException {
         validateSymbol(symbol);
 
-        final Map<String, Coin> cachedCoins = new HashMap<String, Coin>();
-
-        if (cachedCoins.containsKey(symbol)) {
-            final Coin coin = cachedCoins.get(symbol);
+        if (coinCache.containsKey(symbol)) {
+            final Coin coin = coinCache.get(symbol);
             return new ServiceResponseDataDto(coin);
         }
 
         final Coin coin = coinDb.findBySymbol(symbol);
 
-        cachedCoins.put(symbol, coin);
+        coinCache.put(symbol, coin);
 
         return new ServiceResponseDataDto(coin);
     }
@@ -73,11 +67,27 @@ public class CryptoCoinService {
         }
     }
 
-    private int validateLimit(String limit) throws ServiceException {
+    private int validatePageNo(String pageNo) throws ServiceException {
+        final int defaultPageNo = 1;
         try {
-            return Integer.parseInt(limit);
+            if (pageNo != null) {
+                return Integer.parseInt(pageNo);
+            }
+            return defaultPageNo;
         } catch (Exception e) {
-            throw new ServiceException(CustomError.INVALID_LIMIT);
+            throw new ServiceException(CustomError.INVALID_PAGE_NO);
+        }
+    }
+
+    private int validatePageSize(String pageSize) throws ServiceException {
+        final int defaultPageSize = 10;
+        try {
+            if (pageSize != null) {
+                return Integer.parseInt(pageSize);
+            }
+            return defaultPageSize;
+        } catch (Exception e) {
+            throw new ServiceException(CustomError.INVALID_PAGE_SIZE);
         }
     }
 
