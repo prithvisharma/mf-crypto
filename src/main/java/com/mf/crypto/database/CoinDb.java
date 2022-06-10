@@ -82,4 +82,13 @@ public class CoinDb {
         final List<Coin> coinList = jdbcTemplate.query(sql, new CoinRowMapper(), symbol, id);
         return coinList;
     }
+
+    public List<Coin> findAllPaginated(int pageNo, int pageSize) {
+        final int offSetValue = (pageNo - 1) * pageSize;
+        final String query = "SELECT * FROM %s ORDER BY symbol ASC "
+                + " LIMIT " + pageSize + " OFFSET " + offSetValue + ";";
+        final String sql = databaseHelper.addTableToQuery(table, query);
+        final List<Coin> coinList = jdbcTemplate.query(sql, new CoinRowMapper());
+        return coinList;
+    }
 }
